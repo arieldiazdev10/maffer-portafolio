@@ -14,12 +14,6 @@ export const assets = {
 
   hero: {
     blob: "/images/hero-blob.png", // forma roja de nubecitas
-    photos: [
-      "/images/hero-foto-1.jpg", // arriba
-      "/images/hero-foto-2.jpg", // medio izquierda
-      "/images/hero-foto-3.jpg", // medio derecha
-      "/images/hero-foto-4.jpg", // abajo
-    ],
   },
 
   // Imagen única: texto PORTAFOLIO + avatar + sello "edición 2026"
@@ -43,77 +37,6 @@ export const assets = {
     image: "/images/cta-imagen.png",
     width: 1100, // ancho real de tu imagen (px)
     height: 1000, // alto real de tu imagen (px)
-  },
-
-  // Página Editorial: 3 carruseles de 4 imágenes cada uno (de izquierda a derecha en cada fila)
-  editorial: {
-    rows: [
-      [
-        { src: "/images/editorial/bestiario.png", alt: "Editorial fila 1, imagen 1" },
-        { src: "/images/editorial/cartas.png", alt: "Editorial fila 1, imagen 2" },
-        { src: "/images/editorial/revista.png", alt: "Editorial fila 1, imagen 3" },
-        { src: "/images/editorial/tomas.png", alt: "Editorial fila 1, imagen 4" },
-      ],
-      [
-        { src: "/images/editorial/bestiario.png", alt: "Editorial fila 1, imagen 1" },
-        { src: "/images/editorial/cartas.png", alt: "Editorial fila 1, imagen 2" },
-        { src: "/images/editorial/revista.png", alt: "Editorial fila 1, imagen 3" },
-        { src: "/images/editorial/tomas.png", alt: "Editorial fila 1, imagen 4" },
-      ],
-      [
-        { src: "/images/editorial/bestiario.png", alt: "Editorial fila 1, imagen 1" },
-        { src: "/images/editorial/cartas.png", alt: "Editorial fila 1, imagen 2" },
-        { src: "/images/editorial/revista.png", alt: "Editorial fila 1, imagen 3" },
-        { src: "/images/editorial/tomas.png", alt: "Editorial fila 1, imagen 4" },
-      ],
-    ],
-  },
-  branding: {
-    rows: [
-      [
-        { src: "/images/branding/epicura.png", alt: "Branding fila 1, imagen 1" },
-        { src: "/images/branding/glossy.png", alt: "Branding fila 1, imagen 2" },
-        { src: "/images/branding/marca.png", alt: "Branding fila 1, imagen 3" },
-        { src: "/images/branding/metztil.png", alt: "Branding fila 1, imagen 4" },
-      ],
-      [
-        { src: "/images/branding/epicura.png", alt: "Branding fila 1, imagen 1" },
-        { src: "/images/branding/glossy.png", alt: "Branding fila 1, imagen 2" },
-        { src: "/images/branding/marca.png", alt: "Branding fila 1, imagen 3" },
-        { src: "/images/branding/metztil.png", alt: "Branding fila 1, imagen 4" },
-      ],
-      [
-        { src: "/images/branding/epicura.png", alt: "Branding fila 1, imagen 1" },
-        { src: "/images/branding/glossy.png", alt: "Branding fila 1, imagen 2" },
-        { src: "/images/branding/marca.png", alt: "Branding fila 1, imagen 3" },
-        { src: "/images/branding/metztil.png", alt: "Branding fila 1, imagen 4" },
-      ],
-    ],
-  },
-  applied: {
-    rows: [
-      [
-        { src: "/images/diseno-aplicado/arroba.png", alt: "Diseño aplicado fila 1, imagen 1" },
-        { src: "/images/diseno-aplicado/ecolideres.png", alt: "Diseño aplicado fila 1, imagen 2" },
-        { src: "/images/diseno-aplicado/olimpiadas.png", alt: "Diseño aplicado fila 1, imagen 3" },
-        { src: "/images/diseno-aplicado/swarovski.png", alt: "Diseño aplicado fila 1, imagen 4" },
-        { src: "/images/diseno-aplicado/vino.png", alt: "Diseño aplicado fila 1, imagen 5" },
-      ],
-      [
-        { src: "/images/diseno-aplicado/arroba.png", alt: "Diseño aplicado fila 2, imagen 1" },
-        { src: "/images/diseno-aplicado/ecolideres.png", alt: "Diseño aplicado fila 2, imagen 2" },
-        { src: "/images/diseno-aplicado/olimpiadas.png", alt: "Diseño aplicado fila21, imagen 3" },
-        { src: "/images/diseno-aplicado/swarovski.png", alt: "Diseño aplicado fila 2, imagen 4" },
-        { src: "/images/diseno-aplicado/vino.png", alt: "Diseño aplicado fila 2, imagen 5" },
-      ],
-      [
-        { src: "/images/diseno-aplicado/arroba.png", alt: "Diseño aplicado fila 3, imagen 1" },
-        { src: "/images/diseno-aplicado/ecolideres.png", alt: "Diseño aplicado fila 3, imagen 2" },
-        { src: "/images/diseno-aplicado/olimpiadas.png", alt: "Diseño aplicado fila31, imagen 3" },
-        { src: "/images/diseno-aplicado/swarovski.png", alt: "Diseño aplicado fila 3, imagen 4" },
-        { src: "/images/diseno-aplicado/vino.png", alt: "Diseño aplicado fila 3, imagen 5" },
-      ],
-    ],
   },
 
   footer: {

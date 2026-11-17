@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { assets } from "@/lib/assets";
-import { Wave } from "./Decor";
 
 export default function PortfolioTitle() {
   const { banner, width, height } = assets.portfolio;

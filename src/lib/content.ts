@@ -31,7 +31,7 @@ export const footer = {
   text: "El diseño y la creatividad no solo son lo que se ve o se siente, sino es como funcionan",
   socials: {
     instagram: "https://www.instagram.com/mafferalvarado._/",
-    linkedin: "https://www.linkedin.com/in/maria-fernanda-alvarado-gonzález-8082a13b5",
+    linkedin: "https://www.linkedin.com/in/maria-fernanda-alvarado-gonz%C3%A1lez-8082a13b5",
     behance: "https://www.behance.net/maraalvarado11",
   },
 };

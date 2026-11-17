@@ -4,16 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { assets } from "@/lib/assets";
 import { hero } from "@/lib/content";
-import { cn } from "@/lib/utils";
-import { Burst, Wave } from "./Decor";
-
-// Posición y rotación de cada foto dentro del collage (porcentajes del contenedor)
-const frames = [
-  "left-[22%] top-[6%] h-[36%] w-[56%] rotate-[-4deg]",
-  "left-[8%] top-[40%] h-[28%] w-[36%] rotate-[1deg]",
-  "left-[44%] top-[38%] h-[28%] w-[44%] rotate-[-3deg]",
-  "left-[22%] top-[64%] h-[30%] w-[48%] rotate-[3deg]",
-];
+import { Wave } from "./Decor";
 
 export default function Hero() {
   return (
