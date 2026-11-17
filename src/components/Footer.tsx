@@ -44,7 +44,7 @@ export default function Footer() {
           <Image src={assets.footer.avatar} alt="Ilustración de Maffer sonriendo" fill sizes="320px" className="object-contain object-bottom" />
         </div>
 
-        <ul className="mb-8 flex items-center gap-5">
+        <ul className="mb-16 flex items-center gap-5 md:mb-24">
           <li><a href={instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram /></a></li>
           <li><a href={linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin /></a></li>
           <li>

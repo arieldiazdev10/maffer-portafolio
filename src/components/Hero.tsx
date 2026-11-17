@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { assets } from "@/lib/assets";
 import { hero } from "@/lib/content";
+import { noOrphan } from "@/lib/utils";
 import { Wave } from "./Decor";
 
 export default function Hero() {
@@ -16,13 +17,17 @@ export default function Hero() {
         className="relative z-10"
       >
         <p className="text-xl italic text-brand md:text-2xl">{hero.greeting}</p>
-        <h1 className="mt-4 text-3xl leading-tight tracking-tight italic md:text-5xl">
-          <span className="font-semibold">{hero.titleBold}</span>{" "}
-          <span className="font-light">{hero.titleLight}</span>
+        {/* h1 solo para buscadores y lectores de pantalla */}
+        <h1 className="sr-only">
+          Maffer, diseñadora gráfica: diseño editorial, branding y diseño aplicado
         </h1>
+        <p className="mt-4 text-balance text-3xl leading-tight tracking-tight italic md:text-5xl">
+          <span className="font-semibold">{hero.titleBold}</span>{" "}
+          <span className="font-light">{noOrphan(hero.titleLight)}</span>
+        </p>
         <Wave waves={6} stroke={10} className="mt-2 h-6 w-72 md:w-[28rem]" />
-        <p className="mt-10 max-w-md text-base font-light leading-relaxed md:text-lg">
-          {hero.description}
+        <p className="mt-10 max-w-md text-pretty text-base font-light leading-relaxed md:text-lg">
+          {noOrphan(hero.description)}
         </p>
       </motion.div>
 
