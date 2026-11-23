@@ -6,6 +6,9 @@
   --color-sun: #ffd60a;
   --color-blush: #fde1e4;
   --color-ink: #1c1c1c;
+  --color-pinky: #f28dc6; /* rosa principal del nuevo diseño */
+  --color-pinky-deep: #d95b9d; /* rosa más oscuro para párrafos (mejor lectura) */
+  --color-petal: #fde3f4; /* rosa claro de la sección "Sobre mí" */
   --font-sans: var(--font-poppins);
   --font-display: var(--font-lexend);
 }

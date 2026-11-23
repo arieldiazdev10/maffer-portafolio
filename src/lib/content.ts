@@ -8,20 +8,27 @@ export const nav = [
 
 export const hero = {
   greeting: "Hola, soy Maffer",
+  titleLight: "No se trata de encajar en el diseño, sino de",
+  titleBold: "diseñar nuevas formas de encajar",
+  subtitle: "Diseñadora gráfica enfocada en Diseño Editorial y Branding",
+};
+
+export const about = {
+  label: "Sobre mí",
   titleBold: "El único límite es tu mente, Dios me enseñó que su",
   titleLight: "creación no tiene límite.",
-  description:
-    "Una diseñadora gráfica muy curiosa, siempre dispuesta a aprender nuevas formas de crear, enfocada en Diseño Editorial, Branding y Diseño Aplicado. Porque el único límite que conozco está en la mente.",
+  paragraphs: [
+    "Soy Maffer, una diseñadora gráfica curiosa, siempre dispuesta a aprender nuevas formas de crear, con enfoque en Diseño Editorial, Branding y Diseño Aplicado.",
+    "Hagamos realidad aquello que hoy ocupa un espacio en tu mente. Creemos juntos lo que mañana será posible!",
+  ],
 };
 
 export const projectsSection = {
-  title: "Trabajos que empezaron como un boceto, y hoy cobran vida propia",
+  title: "Trabajos que empezaron como un espacio en tu mente, y hoy cobran vida propia",
   caption: "Estos son algunos de mis proyectos favoritos",
 };
 
 export const cta = {
-  title: "Cada obra es un mundo",
-  text: "Hagamos realidad aquello que hoy ocupa un espacio en tu mente. Creemos juntos lo que mañana será posible!",
   button: "Contáctame",
   href: "#contacto",
 };

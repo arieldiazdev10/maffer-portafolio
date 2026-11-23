@@ -3,6 +3,7 @@ import { Poppins, Lexend } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HideOnHome from "@/components/HideOnHome";
 import { footer } from "@/lib/content";
 import { ogImage, siteDescription, siteName, siteTitle, siteUrl } from "@/lib/site";
 
@@ -94,7 +95,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <Header />
         {children}
-        <Footer />
+        <HideOnHome>
+          <Footer />
+        </HideOnHome>
       </body>
     </html>
   );

@@ -12,15 +12,18 @@ export const assets = {
     right: "/images/bee-right.png",
   },
 
+  // Avatar que se asoma sobre la nube (sección superior). Solo cabeza y manos, fondo transparente.
   hero: {
-    blob: "/images/hero-blob.png", // forma roja de nubecitas
+    avatar: "/images/hero-avatar.png",
+    width: 720, // ancho real de tu imagen (px)
+    height: 460, // alto real de tu imagen (px)
   },
 
-  // Imagen única: texto PORTAFOLIO + avatar + sello "edición 2026"
-  portfolio: {
-    banner: "/images/portafolio-banner.png",
-    width: 1600, // ancho real de tu imagen (px)
-    height: 1000, // alto real de tu imagen (px)
+  // Sección "Sobre mí": avatar con su forma de nubes rosa, en una sola imagen
+  about: {
+    image: "/images/about-avatar.png",
+    width: 600, // ancho real de tu imagen (px)
+    height: 760, // alto real de tu imagen (px)
   },
 
   projects: [
@@ -32,13 +35,7 @@ export const assets = {
     { src: "/images/proyectos/arroba.png", alt: "Proyecto arroba", label: "arroba" },
   ] as { src: string; alt: string; label?: string }[],
 
-  // Imagen única de "Cada obra es un mundo" (mancha rosa + ojos + sonrisa)
-  cta: {
-    image: "/images/cta-imagen.png",
-    width: 1100, // ancho real de tu imagen (px)
-    height: 1000, // alto real de tu imagen (px)
-  },
-
+  // Solo se usa en las páginas Branding, Editorial y Diseño aplicado
   footer: {
     avatar: "/images/avatar-footer.png", // ilustración sonriendo con ojos cerrados
   },

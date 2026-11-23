@@ -56,3 +56,37 @@ export function Burst({ className, points = 10 }: { className?: string; points?:
     </svg>
   );
 }
+
+/** Círculos concéntricos rosa con sombra (efecto papel recortado). Controla tamaño y posición con className. */
+export function Rings({ className }: { className?: string }) {
+  const shadow = "shadow-[0_14px_34px_rgba(150,30,100,0.28)]";
+  return (
+    <div
+      aria-hidden
+      className={cn("pointer-events-none absolute z-10 aspect-square rounded-full bg-[#ec7db8]", shadow, className)}
+    >
+      <div className={cn("absolute inset-[15%] rounded-full bg-[#ef8cc3]", shadow)} />
+      <div className={cn("absolute inset-[30%] rounded-full bg-[#f29acb]", shadow)} />
+    </div>
+  );
+}
+
+/**
+ * Borde de nubes. Se pega al borde inferior de una sección; el color se controla con text-*.
+ * `id` debe ser único por cada uso.
+ */
+export function Scallops({ id, className }: { id: string; className?: string }) {
+  return (
+    <svg aria-hidden className={cn("block h-[90px] w-full", className)}>
+      <defs>
+        <pattern id={id} width="260" height="90" patternUnits="userSpaceOnUse">
+          <circle cx="40" cy="90" r="42" fill="currentColor" />
+          <circle cx="125" cy="90" r="62" fill="currentColor" />
+          <circle cx="210" cy="90" r="46" fill="currentColor" />
+          <rect y="60" width="260" height="30" fill="currentColor" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${id})`} />
+    </svg>
+  );
+}
