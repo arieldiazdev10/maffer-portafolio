@@ -10,8 +10,8 @@ export default function Hero() {
 
   return (
     <section id="inicio" className="relative bg-pinky pt-32 text-center text-white md:pt-40">
-      <Rings className="-left-44 top-[22%] w-[20rem] md:-left-52 md:w-[28rem]" />
-      <Rings className="-right-48 -bottom-24 w-[22rem] md:-right-56 md:-bottom-32 md:w-[34rem]" />
+      <Rings className="-left-20 top-[24%] w-[9rem] md:-left-52 md:top-[22%] md:w-[28rem]" />
+      <Rings className="-right-24 -bottom-10 w-[11rem] md:-right-56 md:-bottom-32 md:w-[34rem]" />
 
       <Bee direction="right" className="left-[8%] top-44 h-9 w-9 md:left-[10%] md:top-52 md:h-14 md:w-14" />
       <Bee direction="left" delay={1} className="right-[14%] bottom-40 h-9 w-9 md:right-[24%] md:bottom-52 md:h-14 md:w-14" />
