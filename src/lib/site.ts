@@ -9,7 +9,7 @@ export const siteDescription =
 export const ogImage = "/images/og.jpg";
 
 /** Fecha de la última actualización del contenido (AAAA-MM-DD). Cámbiala cuando publiques cambios importantes. */
-export const lastUpdated = "2026-11-16";
+export const lastUpdated = "2026-11-23";
 
 /** Páginas que se incluyen en el sitemap. */
-export const routes = ["/", "/branding", "/editorial", "/diseno-aplicado"];
+export const routes = ["/", "/proyectos"];

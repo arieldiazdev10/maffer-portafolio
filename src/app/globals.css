@@ -42,11 +42,23 @@ body {
   width: max-content;
   animation: marquee var(--dur, 40s) linear infinite;
   animation-delay: var(--delay, 0s);
-  will-change: transform;
 }
 
 .marquee-track[data-reverse="true"] {
   animation-direction: reverse;
+}
+
+/* En pantallas más pequeñas las imágenes ocupan más ancho: se alarga la vuelta para mantener una velocidad parecida */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .marquee-track { animation-duration: calc(var(--dur, 40s) * 1.25); }
+}
+@media (max-width: 639px) {
+  .marquee-track { animation-duration: calc(var(--dur, 40s) * 1.8); }
+}
+
+/* Las filas que no se ven en pantalla se pausan */
+.marquee[data-offscreen="true"] .marquee-track {
+  animation-play-state: paused;
 }
 
 /* Al pasar el mouse sobre UNA imagen, se detiene solo el carrusel de esa fila */

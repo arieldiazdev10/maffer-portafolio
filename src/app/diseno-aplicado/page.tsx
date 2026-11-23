@@ -1,14 +1,6 @@
-import type { Metadata } from "next";
-import MarqueeGallery from "@/components/MarqueeGallery";
-import { applied } from "@/lib/projects";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Diseño aplicado",
-  description: "Proyectos de diseño aplicado de Maffer: piezas gráficas para marcas, eventos y productos.",
-  alternates: { canonical: "/diseno-aplicado" },
-  openGraph: { url: "/diseno-aplicado", title: "Diseño aplicado | Maffer", description: "Proyectos de diseño aplicado de Maffer: piezas gráficas para marcas, eventos y productos." },
-};
-
+// La página ahora vive dentro de /proyectos; esto conserva los enlaces antiguos.
 export default function Page() {
-  return <MarqueeGallery title="Diseño aplicado" projects={applied} />;
+  permanentRedirect("/proyectos#diseno-aplicado");
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
 import {
   motion,
@@ -14,7 +14,9 @@ import {
 import { assets } from "@/lib/assets";
 import { projectsSection } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { getProjectEntry } from "@/lib/projects";
 import { Rings } from "./Decor";
+import SafeImage from "./SafeImage";
 
 type Project = (typeof assets.projects)[number];
 
@@ -30,6 +32,19 @@ const stackRotations = [-6, 4, -3, 5, -4, 3];
  */
 const STAGGER = 0.05;
 const SPAN = 0.7;
+
+function Wrapper({ slug, label, children }: { slug?: string; label: string; children: React.ReactNode }) {
+  if (!slug || !getProjectEntry(slug)) return <>{children}</>;
+  return (
+    <Link
+      href={`/proyectos/${slug}`}
+      aria-label={`Ver proyecto: ${label}`}
+      className="block rounded-xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-brand md:rounded-[1.75rem]"
+    >
+      {children}
+    </Link>
+  );
+}
 
 function Card({
   p,
@@ -59,13 +74,13 @@ function Card({
   return (
     <motion.li
       style={{ x, y, rotate, zIndex: i }}
-      className="relative -ml-8 first:ml-0 hover:!z-50 md:-ml-14"
+      className="relative -ml-[3vw] first:ml-0 hover:!z-50 md:-ml-14"
     >
       {p.label && (
         <motion.span
           style={{ opacity: labelOpacity }}
           className={cn(
-            "absolute -top-10 z-50 whitespace-nowrap rounded-full px-4 py-1 text-sm text-white md:text-lg",
+            "absolute -top-8 z-50 whitespace-nowrap rounded-full px-3 py-0.5 text-xs text-white md:-top-10 md:px-4 md:py-1 md:text-lg",
             i % 2 === 1 ? "left-6 bg-[#3d5a47]" : "right-2 bg-[#f4a6d7]",
           )}
         >
@@ -79,15 +94,18 @@ function Card({
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="drop-shadow-[0_12px_10px_rgba(0,0,0,0.10)]"
       >
-        <div className="relative aspect-square w-36 overflow-hidden rounded-[1.75rem] md:w-56">
-          <Image
-            src={p.src}
-            alt={p.alt}
-            fill
-            sizes="224px"
-            className="object-cover"
-          />
-        </div>
+        {/* Si el proyecto existe en lib/projects.ts, la tarjeta lleva a su página; si no, es solo imagen */}
+        <Wrapper slug={p.slug} label={p.alt}>
+          <div className="relative aspect-square w-[17.5vw] overflow-hidden rounded-xl md:w-56 md:rounded-[1.75rem]">
+            <SafeImage
+              src={p.src}
+              alt={p.alt}
+              fill
+              sizes="(min-width: 768px) 224px, 18vw"
+              className="object-cover"
+            />
+          </div>
+        </Wrapper>
       </motion.div>
     </motion.li>
   );
@@ -133,20 +151,20 @@ export default function Projects() {
   }, []);
 
   return (
-    <section className="relative px-6 pb-28 pt-16 md:pt-24">
-      <Rings className="-left-44 bottom-0 w-[18rem] md:-left-52 md:w-[26rem]" />
-      <h2 className="mx-auto max-w-4xl text-balance text-center text-3xl font-medium leading-tight tracking-tight text-pinky md:text-6xl">
+    <section className="relative px-2 pb-24 pt-14 md:px-6 md:pb-28 md:pt-24">
+      <Rings className="-left-20 bottom-0 w-[9rem] md:-left-52 md:w-[26rem]" />
+      <h2 className="mx-auto max-w-4xl text-balance px-4 text-center text-3xl font-medium leading-tight tracking-tight text-pinky md:text-6xl">
         {projectsSection.title}
       </h2>
 
       <div
         ref={wrapRef}
-        className="mx-auto mt-16 max-w-6xl overflow-x-auto px-6 pb-12 pt-12 md:overflow-visible"
+        className="mx-auto mt-14 max-w-6xl px-2 pb-12 pt-12 md:mt-16 md:px-6"
       >
         <ul
           ref={listRef}
           className={cn(
-            "relative mx-auto flex w-max items-center md:w-full md:justify-center",
+            "relative mx-auto flex w-full items-center justify-center",
             offsets === null && "invisible",
           )}
         >
@@ -162,7 +180,7 @@ export default function Projects() {
         </ul>
       </div>
 
-      <p className="text-center text-sm uppercase tracking-wide text-pinky md:text-base">
+      <p className="px-4 text-center text-xs uppercase tracking-wide text-pinky sm:text-sm md:text-base">
         {projectsSection.caption}
       </p>
     </section>

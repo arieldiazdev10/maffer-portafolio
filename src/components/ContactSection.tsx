@@ -6,10 +6,13 @@ import { Rings, Scallops } from "./Decor";
 import Reveal from "./Reveal";
 import Socials from "./Socials";
 
-export default function ContactSection() {
+export default function ContactSection({ topRing = false }: { topRing?: boolean }) {
   return (
     <section id="contacto" className="relative px-6 pb-48 pt-24 text-center md:pt-32">
-      <Rings className="-left-44 bottom-32 w-[18rem] md:-left-52 md:bottom-24 md:w-[26rem]" />
+      {topRing && (
+        <Rings className="-right-20 -top-12 w-[10rem] md:-right-52 md:-top-32 md:w-[30rem]" />
+      )}
+      <Rings className="-left-20 bottom-32 w-[9rem] md:-left-52 md:bottom-24 md:w-[26rem]" />
       <Bee direction="right" className="left-[8%] top-24 h-10 w-10 md:left-[18%] md:top-28 md:h-14 md:w-14" />
       <Bee direction="left" delay={1} className="right-[10%] top-[16rem] h-10 w-10 md:right-[26%] md:top-[18rem] md:h-14 md:w-14" />
 

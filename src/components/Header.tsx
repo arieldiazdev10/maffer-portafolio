@@ -1,71 +1,205 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "motion/react";
-import { assets } from "@/lib/assets";
 import { nav } from "@/lib/content";
+import { getProjectEntry } from "@/lib/projects";
 import { cn } from "@/lib/utils";
-import Bee from "./Bee";
+
+// Secciones que se observan en cada página (en el orden en que aparecen)
+const sectionsByPath: Record<string, string[]> = {
+  "/": ["contacto"],
+  "/proyectos": ["branding", "editorial", "diseno-aplicado", "contacto"],
+};
+
+// En la página de detalle de un proyecto solo se observa el contacto (el footer)
+const contactOnly = ["contacto"];
 
 /**
- * Se devuelve un fragmento (logo + menú) para que el menú sea hijo directo de <main>.
- * Así `sticky` funciona durante todo el scroll de la página.
+ * Devuelve el id de la sección visible (la última cuya parte superior ya pasó el 40% de la pantalla).
+ * `goTo(id)` fija el botón mientras dura el scroll automático de un clic, para que no se
+ * vaya iluminando cada botón intermedio; se libera al terminar o cuando el usuario toma el control.
  */
+function useActiveSection(ids: string[] | undefined) {
+  const [active, setActive] = useState<string | null>(null);
+  const lock = useRef<string | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    if (!ids) {
+      setActive(null);
+      return;
+    }
+    const update = () => {
+      if (lock.current) {
+        setActive(lock.current);
+        return;
+      }
+      const line = window.innerHeight * 0.4;
+      const present = ids.filter((id) => document.getElementById(id));
+      let current: string | null = null;
+      for (const id of present) {
+        if (document.getElementById(id)!.getBoundingClientRect().top <= line) current = id;
+      }
+      // Al llegar al final de la página se marca la última sección
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (atBottom && present.length) current = present[present.length - 1];
+      setActive(current);
+    };
+
+    // El cálculo se hace como máximo una vez por fotograma, para no frenar el scroll
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
+    };
+    const release = () => {
+      lock.current = null;
+      clearTimeout(timer.current);
+      onScroll();
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    window.addEventListener("wheel", release, { passive: true });
+    window.addEventListener("touchstart", release, { passive: true });
+    window.addEventListener("keydown", release);
+    window.addEventListener("scrollend", release);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("wheel", release);
+      window.removeEventListener("touchstart", release);
+      window.removeEventListener("keydown", release);
+      window.removeEventListener("scrollend", release);
+      clearTimeout(timer.current);
+    };
+  }, [ids]);
+
+  const goTo = useCallback((id: string) => {
+    lock.current = id;
+    setActive(id);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      lock.current = null;
+    }, 1500);
+  }, []);
+
+  return { active, goTo };
+}
+
+/** Menú principal, fijo arriba al hacer scroll. Es hijo directo del <body> para que `sticky` funcione siempre. */
 export default function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  return (
-    <>
-      {/* En la página principal no hay logo arriba: el menú flota sobre el fondo rosa */}
-      {!isHome && (
-      <header id="inicio" className="relative px-4 pt-8">
-        <div className="relative mx-auto h-14 w-40 md:h-16 md:w-48">
-          <Image src={assets.logo} alt="Maffer" fill priority sizes="200px" className="object-contain" />
-          <Bee direction="left" className="-left-16 top-8 h-10 w-10 md:-left-24 md:top-10 md:h-12 md:w-12" />
-          <Bee direction="right" className="-right-14 -top-2 h-10 w-10 md:-right-20 md:h-12 md:w-12" delay={1} />
-        </div>
-      </header>
-      )}
+  // En /proyectos/<id> el botón de la categoría del proyecto queda resaltado (Branding, Editorial...)
+  const detailSlug = pathname.startsWith("/proyectos/") ? pathname.split("/")[2] : undefined;
+  const detailCategory = detailSlug ? getProjectEntry(detailSlug)?.categoryId : undefined;
 
-      {/* Menú fijo: se queda arriba al hacer scroll. En la home mide 0 de alto para que el rosa llegue hasta arriba */}
-      <div className={cn("sticky z-50 px-4", isHome ? "top-0 h-0" : "top-4 mt-8")}>
-        <nav
-          aria-label="Principal"
-          className={cn(
-            "mx-auto max-w-5xl overflow-x-auto rounded-full bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.18)] md:p-3",
-            isHome && "relative top-4"
+  const sectionIds = sectionsByPath[pathname] ?? (detailSlug ? contactOnly : undefined);
+  const { active: section, goTo } = useActiveSection(sectionIds);
+
+  // Botón resaltado: el de la sección visible; si no hay, el que corresponde a la página
+  const fallback = isHome
+    ? nav[0].label
+    : pathname === "/proyectos"
+      ? "Branding"
+      : nav.find((i) => i.section === detailCategory)?.label;
+  const activeLabel = (sectionIds && nav.find((i) => i.section === section)?.label) || fallback;
+
+  const navRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
+
+  // La píldora roja se posiciona midiendo el botón activo y se mueve con una transición CSS.
+  // (Sin animaciones de layout: esas se descuadran con un menú sticky mientras se hace scroll.)
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const measure = () => {
+      const item = list.querySelector<HTMLElement>('[data-active="true"]');
+      setPill(item ? { left: item.offsetLeft, width: item.offsetWidth } : null);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [activeLabel]);
+
+  // En pantallas pequeñas el menú se desplaza: centra el botón activo sin tocar el scroll de la página
+  useEffect(() => {
+    const navEl = navRef.current;
+    const item = listRef.current?.querySelector<HTMLElement>('[data-active="true"]');
+    if (!navEl || !item || navEl.scrollWidth <= navEl.clientWidth) return;
+    const n = navEl.getBoundingClientRect();
+    const i = item.getBoundingClientRect();
+    navEl.scrollTo({ left: navEl.scrollLeft + (i.left - n.left) - (n.width - i.width) / 2, behavior: "smooth" });
+  }, [activeLabel]);
+
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>, href: string, sectionId?: string) => {
+    const [path, hash] = href.split("#");
+
+    // Mismo destino que la página actual (ej. "Maffer" estando en la página principal)
+    if (!hash && path === pathname) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    // Sección de otra página: navegación normal de Next.js
+    if (!hash || (path && path !== pathname)) return;
+
+    const target = document.getElementById(hash);
+    if (!target) return;
+    e.preventDefault();
+    if (sectionId) goTo(sectionId);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    // En la home mide 0 de alto para que el fondo rosa llegue hasta arriba
+    <div className={cn("sticky z-50 px-3 sm:px-4", isHome ? "top-0 h-0" : "top-3 mt-3 sm:top-4 sm:mt-4")}>
+      <nav
+        ref={navRef}
+        aria-label="Principal"
+        className={cn(
+          "mx-auto max-w-5xl overflow-x-auto rounded-full bg-white p-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.18)] [scrollbar-width:none] sm:p-2 md:p-3 [&::-webkit-scrollbar]:hidden",
+          isHome && "relative top-3 sm:top-4"
+        )}
+      >
+        <ul ref={listRef} className="relative flex min-w-max items-center justify-between gap-0.5 sm:gap-1 md:gap-2">
+          {pill && (
+            <span
+              aria-hidden
+              className="absolute inset-y-0 left-0 rounded-full bg-brand transition-[transform,width] duration-300 ease-out"
+              style={{ width: pill.width, transform: `translateX(${pill.left}px)` }}
+            />
           )}
-        >
-          <ul className="flex min-w-max items-center justify-between gap-1 md:gap-2">
-            {nav.map((item) => {
-              const isActive = item.href === pathname;
-              return (
-                <li key={item.label} className="relative">
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "relative z-10 block rounded-full px-5 py-3 text-sm transition-colors md:px-8 md:text-base",
-                      isActive ? "text-white" : "text-ink hover:text-brand"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full bg-brand"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+          {nav.map((item) => {
+            const isActive = item.label === activeLabel;
+            return (
+              <li key={item.label} data-active={isActive} className="relative">
+                <Link
+                  href={item.href}
+                  onClick={(e) => handleClick(e, item.href, item.section)}
+                  className={cn(
+                    "relative z-10 block whitespace-nowrap rounded-full px-3.5 py-2.5 text-[13px] transition-colors duration-300 sm:px-5 sm:py-3 sm:text-sm md:px-8 md:text-base",
+                    isActive ? "text-white" : "text-ink hover:text-brand"
                   )}
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
-    </>
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </div>
   );
 }

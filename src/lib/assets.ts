@@ -26,17 +26,13 @@ export const assets = {
     height: 760, // alto real de tu imagen (px)
   },
 
+  // Abanico de la página principal. `slug` es el id del proyecto en lib/projects.ts: al hacer clic lleva a su página.
   projects: [
-    { src: "/images/proyectos/metzin.png", alt: "Proyecto Metzin" },
-    { src: "/images/proyectos/epicuria.png", alt: "Proyecto Epicuria", label: "Epicuria" },
-    { src: "/images/proyectos/aventureros.png", alt: "Proyecto Pequeños aventureros" },
-    { src: "/images/proyectos/mono-rosa.png", alt: "Proyecto del moño rosa" },
-    { src: "/images/proyectos/lideres.png", alt: "Proyecto Líderes" },
-    { src: "/images/proyectos/arroba.png", alt: "Proyecto arroba", label: "arroba" },
-  ] as { src: string; alt: string; label?: string }[],
-
-  // Solo se usa en las páginas Branding, Editorial y Diseño aplicado
-  footer: {
-    avatar: "/images/avatar-footer.png", // ilustración sonriendo con ojos cerrados
-  },
+    { src: "/images/proyectos/metzin.png", alt: "Proyecto Metzin", slug: "metztil" },
+    { src: "/images/proyectos/epicuria.png", alt: "Proyecto Epicuria", label: "Epicuria", slug: "epicura" },
+    { src: "/images/proyectos/aventureros.png", alt: "Proyecto Pequeños aventureros", slug: "bestiario" },
+    { src: "/images/proyectos/mono-rosa.png", alt: "Proyecto del moño rosa", slug: "cartas" },
+    { src: "/images/proyectos/lideres.png", alt: "Proyecto Líderes", slug: "ecolideres" },
+    { src: "/images/proyectos/arroba.png", alt: "Proyecto arroba", label: "arroba", slug: "arroba" },
+  ] as { src: string; alt: string; label?: string; slug?: string }[],
 };

@@ -3,8 +3,11 @@
  *
  * Cada proyecto tiene:
  *  - cover: la imagen que aparece en el carrusel
- *  - gallery: las fotos que se ven al abrirlo (normalmente 3 o 4, puede variar)
- *  - title / category / description: los textos del modal (description = un párrafo por elemento)
+ *  - gallery: las imágenes de la página de detalle, de arriba abajo (la primera va grande; puede haber las que quieras)
+ *  - title / category / description: los textos de la página de detalle (description = un párrafo por elemento)
+ *  - accent (opcional): color del título en la página de detalle
+ *
+ * Cada proyecto tiene su propia página: /proyectos/<id>
  *
  * Para agregar un proyecto nuevo, copia un bloque, cambia el `id` (único) y los textos/rutas.
  */
@@ -18,6 +21,8 @@ export type Project = {
   cover: ProjectImage;
   gallery: ProjectImage[];
   description: string[];
+  /** Color del título en la página de detalle (por defecto, el rojo de la marca). */
+  accent?: string;
 };
 
 /** Atajo: gallery("/images/editorial/bestiario", ["1.png", "2.png", "3.png"], "Bestiario") */
@@ -36,6 +41,7 @@ export const editorial: Project[] = [
     category: "Diseño editorial",
     cover: { src: "/images/editorial/bestiario.png", alt: "Portada del proyecto Pequeños aventureros" },
     gallery: gallery("/images", ["coming-soon.png"], "Bestiario"),
+    accent: "#8a9a4b",
     description: [
       "¡Algo extraordinario está por venir!",
     ],
@@ -119,7 +125,7 @@ export const applied: Project[] = [
     title: "Arroba",
     category: "Diseño aplicado",
     cover: { src: "/images/diseno-aplicado/arroba.png", alt: "Portada del proyecto Arroba" },
-    gallery: gallery("/images", ["coming-soon.png"], "Bestiario"),
+    gallery: gallery("/images", ["coming-soon.png"], "Arroba"),
     description: [
       "¡Algo extraordinario está por venir!",
     ],
@@ -129,7 +135,7 @@ export const applied: Project[] = [
     title: "Ecolíderes",
     category: "Diseño aplicado",
     cover: { src: "/images/diseno-aplicado/ecolideres.png", alt: "Portada del proyecto Ecolíderes" },
-    gallery: gallery("/images", ["coming-soon.png"], "Bestiario"),
+    gallery: gallery("/images", ["coming-soon.png"], "Ecolíderes"),
     description: [
       "¡Algo extraordinario está por venir!",
     ],
@@ -139,7 +145,7 @@ export const applied: Project[] = [
     title: "Olimpiadas",
     category: "Diseño aplicado",
     cover: { src: "/images/diseno-aplicado/olimpiadas.png", alt: "Portada del proyecto Olimpiadas" },
-    gallery: gallery("/images", ["coming-soon.png"], "Bestiario"),
+    gallery: gallery("/images", ["coming-soon.png"], "Olimpiadas"),
     description: [
       "¡Algo extraordinario está por venir!",
     ],
@@ -149,7 +155,7 @@ export const applied: Project[] = [
     title: "Swarovski",
     category: "Diseño aplicado",
     cover: { src: "/images/diseno-aplicado/swarovski.png", alt: "Portada del proyecto Swarovski" },
-    gallery: gallery("/images", ["coming-soon.png"], "Bestiario"),
+    gallery: gallery("/images", ["coming-soon.png"], "Swarovski"),
     description: [
       "¡Algo extraordinario está por venir!",
     ],
@@ -159,9 +165,29 @@ export const applied: Project[] = [
     title: "Vino",
     category: "Diseño aplicado",
     cover: { src: "/images/diseno-aplicado/vino.png", alt: "Portada del proyecto Vino" },
-    gallery: gallery("/images", ["coming-soon.png"], "Bestiario"),
+    gallery: gallery("/images", ["coming-soon.png"], "Vino"),
     description: [
       "¡Algo extraordinario está por venir!",
     ],
   },
 ];
+
+/* --------------------------------- ÍNDICE -------------------------------- */
+export type CategoryId = "branding" | "editorial" | "diseno-aplicado";
+
+/** Todas las categorías, con el id que usa el menú. */
+export const projectsByCategory: Record<CategoryId, Project[]> = {
+  branding,
+  editorial,
+  "diseno-aplicado": applied,
+};
+
+/** Lista plana de todos los proyectos, con su categoría. */
+export const allProjects = (Object.entries(projectsByCategory) as [CategoryId, Project[]][]).flatMap(
+  ([categoryId, list]) => list.map((project) => ({ project, categoryId })),
+);
+
+/** Busca un proyecto por su id (el que se usa en la dirección /proyectos/<id>). */
+export function getProjectEntry(id: string) {
+  return allProjects.find((entry) => entry.project.id === id);
+}

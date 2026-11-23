@@ -1,14 +1,6 @@
-import type { Metadata } from "next";
-import MarqueeGallery from "@/components/MarqueeGallery";
-import { branding } from "@/lib/projects";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Branding",
-  description: "Proyectos de branding de Maffer: identidad visual y marcas con personalidad.",
-  alternates: { canonical: "/branding" },
-  openGraph: { url: "/branding", title: "Branding | Maffer", description: "Proyectos de branding de Maffer: identidad visual y marcas con personalidad." },
-};
-
+// La página ahora vive dentro de /proyectos; esto conserva los enlaces antiguos.
 export default function Page() {
-  return <MarqueeGallery title="Branding" projects={branding} />;
+  permanentRedirect("/proyectos#branding");
 }
