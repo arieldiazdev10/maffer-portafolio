@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
-import PortfolioTitle from "@/components/PortfolioTitle";
 import Projects from "@/components/Projects";
-import Cta from "@/components/Cta";
+import About from "@/components/About";
+import ContactSection from "@/components/ContactSection";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
+    <main className="relative overflow-x-clip">
       <Hero />
-      <PortfolioTitle />
       <Projects />
-      <Cta />
+      <About />
+      <ContactSection />
     </main>
   );
 }

@@ -14,6 +14,7 @@ import {
 import { assets } from "@/lib/assets";
 import { projectsSection } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { Rings } from "./Decor";
 
 type Project = (typeof assets.projects)[number];
 
@@ -132,8 +133,9 @@ export default function Projects() {
   }, []);
 
   return (
-    <section className="px-6 pb-28">
-      <h2 className="mx-auto max-w-4xl text-center text-3xl leading-tight tracking-tight md:text-6xl">
+    <section className="relative px-6 pb-28 pt-16 md:pt-24">
+      <Rings className="-left-44 bottom-0 w-[18rem] md:-left-52 md:w-[26rem]" />
+      <h2 className="mx-auto max-w-4xl text-balance text-center text-3xl font-medium leading-tight tracking-tight text-pinky md:text-6xl">
         {projectsSection.title}
       </h2>
 
@@ -160,7 +162,7 @@ export default function Projects() {
         </ul>
       </div>
 
-      <p className="text-center text-sm md:text-base">
+      <p className="text-center text-sm uppercase tracking-wide text-pinky md:text-base">
         {projectsSection.caption}
       </p>
     </section>
