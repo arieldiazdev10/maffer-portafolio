@@ -14,7 +14,10 @@ export default function About() {
   return (
     <section id="sobre-mi" className="relative bg-petal py-24 md:py-32">
       <Rings className="-right-[4.8rem] -bottom-[2.8rem] w-[8.8rem] md:-right-[10.4rem] md:-bottom-[6.4rem] md:w-[25.6rem]" />
-      <Bee direction="left" className="right-[8%] top-10 h-10 w-10 md:right-[22%] md:top-16 md:h-14 md:w-14" />
+      <Bee
+        direction="left"
+        className="right-[8%] top-10 h-10 w-10 md:right-[22%] md:top-16 md:h-14 md:w-14"
+      />
 
       <div className="relative mx-auto grid max-w-5xl items-center gap-10 px-6 md:grid-cols-[0.9fr_1fr] md:gap-16">
         {/* Avatar: aparece con un pequeño rebote al hacer scroll */}
@@ -30,7 +33,9 @@ export default function About() {
         </Reveal>
 
         <Reveal delay={0.15}>
-          <p className="text-sm uppercase tracking-wide text-pinky">{about.label}</p>
+          <p className="text-sm uppercase tracking-wide text-pinky">
+            {about.label}
+          </p>
           <h2 className="mt-4 text-balance text-3xl italic leading-tight tracking-tight text-pinky md:text-4xl">
             <span className="font-semibold">{about.titleBold}</span>{" "}
             <span className="font-light">{noOrphan(about.titleLight)}</span>

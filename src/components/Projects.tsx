@@ -151,12 +151,19 @@ export default function Projects() {
   }, []);
 
   return (
+<<<<<<< HEAD
     <section className="relative px-2 pb-16 pt-14 md:px-6 md:pb-28 md:pt-24">
       <Rings className="-left-16 bottom-0 w-[7.2rem] md:-left-[10.4rem] md:w-[20.8rem]" />
       {/* En escritorio cada frase ocupa una línea; en celular se parten para que quepan */}
       <h2 className="mx-auto max-w-6xl px-4 text-center text-[1.75rem] font-medium leading-tight tracking-tight text-pinky md:text-[min(3.2vw,2.9rem)]">
         <span className="block text-balance">{projectsSection.titleLine1}</span>
         <span className="block text-balance">{projectsSection.titleLine2}</span>
+=======
+    <section className="relative px-2 pb-24 pt-14 md:px-6 md:pb-28 md:pt-24">
+      <Rings className="-left-20 bottom-0 w-[9rem] md:-left-52 md:w-[26rem]" />
+      <h2 className="mx-auto max-w-4xl text-balance px-4 text-center text-3xl font-medium leading-tight tracking-tight text-pinky md:text-6xl">
+        {projectsSection.title}
+>>>>>>> 17e0d71d25b121b9ec266ee8db2bd86a9ff39dcf
       </h2>
 
       {/* CELULAR: carrusel con deslizamiento (tarjetas grandes que se centran al soltar) */}
@@ -190,7 +197,11 @@ export default function Projects() {
       {/* ESCRITORIO: abanico animado con el scroll */}
       <div
         ref={wrapRef}
+<<<<<<< HEAD
         className="mx-auto mt-14 hidden max-w-6xl px-2 pb-12 pt-12 md:mt-16 md:block md:px-6"
+=======
+        className="mx-auto mt-14 max-w-6xl px-2 pb-12 pt-12 md:mt-16 md:px-6"
+>>>>>>> 17e0d71d25b121b9ec266ee8db2bd86a9ff39dcf
       >
         <ul
           ref={listRef}
