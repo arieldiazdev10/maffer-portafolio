@@ -13,7 +13,7 @@ export default function About() {
 
   return (
     <section id="sobre-mi" className="relative bg-petal py-24 md:py-32">
-      <Rings className="-right-44 -bottom-32 w-[22rem] md:-right-52 md:w-[32rem]" />
+      <Rings className="-right-[4.8rem] -bottom-[2.8rem] w-[8.8rem] md:-right-[10.4rem] md:-bottom-[6.4rem] md:w-[25.6rem]" />
       <Bee direction="left" className="right-[8%] top-10 h-10 w-10 md:right-[22%] md:top-16 md:h-14 md:w-14" />
 
       <div className="relative mx-auto grid max-w-5xl items-center gap-10 px-6 md:grid-cols-[0.9fr_1fr] md:gap-16">

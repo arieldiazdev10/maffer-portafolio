@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 /** Línea ondulada amarilla. `waves` = cantidad de ondas. */
 export function Wave({
-  waves = 8,
+  waves = 10,
   className,
   stroke = 14,
 }: {
@@ -11,7 +11,7 @@ export function Wave({
   stroke?: number;
 }) {
   const w = 100;
-  const h = 40;
+  const h = 60;
   let d = `M0 ${h / 2}`;
   for (let i = 0; i < waves; i++) {
     const x = i * w;
@@ -37,15 +37,28 @@ export function Wave({
 }
 
 /** Estrella / sol amarillo de puntas redondeadas. */
-export function Burst({ className, points = 10 }: { className?: string; points?: number }) {
-  const cx = 50, cy = 50, outer = 46, inner = 34;
+export function Burst({
+  className,
+  points = 10,
+}: {
+  className?: string;
+  points?: number;
+}) {
+  const cx = 50,
+    cy = 50,
+    outer = 46,
+    inner = 34;
   const pts = Array.from({ length: points * 2 }, (_, i) => {
     const r = i % 2 === 0 ? outer : inner;
     const a = (Math.PI * i) / points - Math.PI / 2;
     return `${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`;
   }).join(" ");
   return (
-    <svg viewBox="0 0 100 100" className={cn("text-sun", className)} aria-hidden>
+    <svg
+      viewBox="0 0 100 100"
+      className={cn("text-sun", className)}
+      aria-hidden
+    >
       <polygon
         points={pts}
         fill="currentColor"
@@ -63,10 +76,18 @@ export function Rings({ className }: { className?: string }) {
   return (
     <div
       aria-hidden
-      className={cn("pointer-events-none absolute z-10 aspect-square rounded-full bg-[#ec7db8]", shadow, className)}
+      className={cn(
+        "pointer-events-none absolute z-10 aspect-square rounded-full bg-[#ec7db8]",
+        shadow,
+        className,
+      )}
     >
-      <div className={cn("absolute inset-[15%] rounded-full bg-[#ef8cc3]", shadow)} />
-      <div className={cn("absolute inset-[30%] rounded-full bg-[#f29acb]", shadow)} />
+      <div
+        className={cn("absolute inset-[15%] rounded-full bg-[#ef8cc3]", shadow)}
+      />
+      <div
+        className={cn("absolute inset-[30%] rounded-full bg-[#f29acb]", shadow)}
+      />
     </div>
   );
 }
@@ -75,7 +96,13 @@ export function Rings({ className }: { className?: string }) {
  * Borde de nubes. Se pega al borde inferior de una sección; el color se controla con text-*.
  * `id` debe ser único por cada uso.
  */
-export function Scallops({ id, className }: { id: string; className?: string }) {
+export function Scallops({
+  id,
+  className,
+}: {
+  id: string;
+  className?: string;
+}) {
   return (
     <svg aria-hidden className={cn("block h-[90px] w-full", className)}>
       <defs>

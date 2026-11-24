@@ -1,14 +1,26 @@
-export const nav = [
+/**
+ * Menú principal. `section` es el id de la sección que resalta ese botón al hacer scroll.
+ * Branding, Editorial y Diseño aplicado llevan a la página /proyectos, a su sección.
+ */
+export const nav: { label: string; href: string; section?: string }[] = [
   { label: "Maffer", href: "/" },
-  { label: "Branding", href: "/branding" },
-  { label: "Editorial", href: "/editorial" },
-  { label: "Diseño aplicado", href: "/diseno-aplicado" },
-  { label: "Trabajemos juntos", href: "#contacto" },
+  { label: "Branding", href: "/proyectos#branding", section: "branding" },
+  { label: "Editorial", href: "/proyectos#editorial", section: "editorial" },
+  { label: "Diseño aplicado", href: "/proyectos#diseno-aplicado", section: "diseno-aplicado" },
+  { label: "Trabajemos juntos", href: "#contacto", section: "contacto" },
+];
+
+/** Secciones de la página /proyectos, en el mismo orden que el menú. */
+export const projectCategories = [
+  { id: "branding", title: "Branding" },
+  { id: "editorial", title: "Editorial" },
+  { id: "diseno-aplicado", title: "Diseño aplicado" },
 ];
 
 export const hero = {
   greeting: "Hola, soy Maffer",
-  titleLight: "No se trata de encajar en el diseño, sino de",
+  titleLine1: "No se trata de encajar en el diseño, sino",
+  titleJoin: "de",
   titleBold: "diseñar nuevas formas de encajar",
   subtitle: "Diseñadora gráfica enfocada en Diseño Editorial y Branding",
 };
@@ -24,7 +36,8 @@ export const about = {
 };
 
 export const projectsSection = {
-  title: "Trabajos que empezaron como un espacio en tu mente, y hoy cobran vida propia",
+  titleLine1: "Trabajos que empezaron como un espacio",
+  titleLine2: "en tu mente, y hoy cobran vida propia",
   caption: "Estos son algunos de mis proyectos favoritos",
 };
 
