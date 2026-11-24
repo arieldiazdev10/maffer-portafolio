@@ -10,15 +10,9 @@ export default function ContactSection({ topRing = false }: { topRing?: boolean 
   return (
     <section id="contacto" className="relative px-6 pb-48 pt-24 text-center md:pt-32">
       {topRing && (
-<<<<<<< HEAD
         <Rings className="-right-16 -top-[2.4rem] w-[8rem] md:-right-[10.4rem] md:-top-[6.4rem] md:w-[24rem]" />
       )}
       <Rings className="-left-16 bottom-32 w-[7.2rem] md:-left-[10.4rem] md:bottom-24 md:w-[20.8rem]" />
-=======
-        <Rings className="-right-20 -top-12 w-[10rem] md:-right-52 md:-top-32 md:w-[30rem]" />
-      )}
-      <Rings className="-left-20 bottom-32 w-[9rem] md:-left-52 md:bottom-24 md:w-[26rem]" />
->>>>>>> 17e0d71d25b121b9ec266ee8db2bd86a9ff39dcf
       <Bee direction="right" className="left-[8%] top-24 h-10 w-10 md:left-[18%] md:top-28 md:h-14 md:w-14" />
       <Bee direction="left" delay={1} className="right-[10%] top-[16rem] h-10 w-10 md:right-[26%] md:top-[18rem] md:h-14 md:w-14" />
 
